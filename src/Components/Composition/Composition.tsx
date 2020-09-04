@@ -35,7 +35,7 @@ const Composition: FC<CompositionTypeProps> = ({
   return (
     <div className={mainStyles}>
       <div className={classes.icon}>
-        <img src={images} alt="album_cover" />
+        <img src={images} alt="alb_cv" />
       </div>
       <div className={classes.info}>
         <div className={classes.title}>{title}</div>

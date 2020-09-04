@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */ // Need for action creators
 import { createSlice } from '@reduxjs/toolkit';
-import { ApplicationState } from 'src/redux/types';
+import { ApplicationState } from 'src/types/types';
 
 const initialState: ApplicationState = {
   isLoading: false,
@@ -16,14 +16,15 @@ const app = createSlice({
       ...state,
       isLoading: true
     }),
-    fetchCompositionsSuccess: (state): ApplicationState => ({
-      ...state,
-      isLoading: false
-    }),
-    fetchCompositionsFailure: (state, action): ApplicationState => ({
+    fetchCompositionsSuccess: (state, action): ApplicationState => ({
       ...state,
       isLoading: false,
-      error: action.payload
+      compositions: action.payload
+    }),
+    fetchCompositionsFailure: (state): ApplicationState => ({
+      ...state,
+      isLoading: false,
+      error: 'ERROR_CODE'
     })
   }
 });
