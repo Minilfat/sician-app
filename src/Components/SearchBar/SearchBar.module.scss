@@ -1,0 +1,49 @@
+@import 'src/styles/colors';
+@import 'src/styles/breakpoints';
+
+.wrapper {
+  padding: 16px 8px;
+  text-align: center;
+  background: url('../../assets/yousician-hero-mobile.png');
+
+  .title {
+    text-transform: uppercase;
+    color: $textprimary;
+    font-size: 24px;
+  }
+
+  .subtitle {
+    font-weight: 400;
+    color: $textprimary;
+    font-size: 14px;
+  }
+
+  @include xs-min {
+    background: url('../../assets/yousician-hero.png');
+    padding: 20px 6px;
+  }
+
+  @include sm-min {
+    padding: 24px 6px;
+
+    .title {
+      font-size: 28px;
+    }
+
+    .subtitle {
+      font-size: 16px;
+    }
+  }
+
+  @include md-min {
+    padding: 40px 0;
+
+    .title {
+      font-size: 32px;
+    }
+
+    .subtitle {
+      font-size: 18px;
+    }
+  }
+}

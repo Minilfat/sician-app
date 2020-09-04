@@ -1,0 +1,60 @@
+@import 'src/styles/colors';
+@import 'src/styles/breakpoints';
+
+.wrapper {
+  padding: 12px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 200px;
+  max-width: 600px;
+
+  .info {
+    flex-grow: 1;
+    padding: 0 14px;
+  }
+
+  .icon {
+    img {
+      width: 56px;
+      height: 56px;
+    }
+  }
+
+  .controls {
+    display: flex;
+  }
+
+  // background: url('../../assets/yousician-hero-mobile.png');
+  // min-width: $screen-xs-max;
+
+  // .title {
+  //   text-transform: uppercase;
+  //   color: $textprimary;
+  //   font-size: 24px;
+  // }
+
+  // .subtitle {
+  //   font-weight: 400;
+  //   color: $textprimary;
+  //   font-size: 14px;
+  // }
+
+  // @include xs-min {
+  //   background: url('../../assets/yousician-hero.png');
+  //   padding: 20px 6px;
+  // }
+
+  // @include sm-min {
+  //   padding: 40px 0;
+
+  //   .title {
+  //     font-size: 32px;
+  //   }
+
+  //   .subtitle {
+  //     font-size: 18px;
+  //   }
+  // }
+}

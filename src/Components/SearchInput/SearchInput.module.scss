@@ -1,0 +1,43 @@
+@import 'src/styles/breakpoints';
+
+.wrapper {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+
+  .icon {
+    cursor: pointer;
+    position: absolute;
+    top: 36px;
+    right: 42px;
+  }
+
+  .input-field {
+    border: none;
+    width: 100%;
+    font-size: 14px;
+    padding: 16px 24px;
+    border-radius: 30px;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  @include sm {
+    padding: 20px 10px;
+
+    .input-field {
+      padding: 16px 12px;
+    }
+
+    .icon {
+      right: 32px;
+    }
+  }
+
+  @include md-min {
+    max-width: $screen-md-max;
+  }
+}
