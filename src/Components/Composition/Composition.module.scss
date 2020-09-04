@@ -1,18 +1,40 @@
 @import 'src/styles/colors';
 @import 'src/styles/breakpoints';
+@import 'src/styles/common';
+
+.bg {
+  background-color: $bgprimary;
+}
+
+.bg-light {
+  background-color: $bgsecondary;
+}
 
 .wrapper {
+  @include centered;
+
   padding: 12px;
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
   min-width: 200px;
   max-width: 600px;
 
   .info {
     flex-grow: 1;
+
     padding: 0 14px;
+    color: $textprimary;
+
+    .title {
+      padding-bottom: 6px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .artist {
+      font-size: 14px;
+      font-weight: 400;
+    }
   }
 
   .icon {
@@ -24,37 +46,26 @@
 
   .controls {
     display: flex;
+
+    .level {
+      margin-right: 12px;
+    }
+
+    .favorite {
+      cursor: pointer;
+      @include centered;
+
+      &-fill {
+        svg {
+          fill: $levelhard;
+        }
+      }
+
+      &-border {
+        svg {
+          fill: $color;
+        }
+      }
+    }
   }
-
-  // background: url('../../assets/yousician-hero-mobile.png');
-  // min-width: $screen-xs-max;
-
-  // .title {
-  //   text-transform: uppercase;
-  //   color: $textprimary;
-  //   font-size: 24px;
-  // }
-
-  // .subtitle {
-  //   font-weight: 400;
-  //   color: $textprimary;
-  //   font-size: 14px;
-  // }
-
-  // @include xs-min {
-  //   background: url('../../assets/yousician-hero.png');
-  //   padding: 20px 6px;
-  // }
-
-  // @include sm-min {
-  //   padding: 40px 0;
-
-  //   .title {
-  //     font-size: 32px;
-  //   }
-
-  //   .subtitle {
-  //     font-size: 18px;
-  //   }
-  // }
 }

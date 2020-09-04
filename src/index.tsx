@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import store from './redux/store';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import store from 'src/redux/store';
+import App from 'src/App';
+
+import * as serviceWorker from 'src/serviceWorker';
+
 import './index.css';
 
 ReactDOM.render(
