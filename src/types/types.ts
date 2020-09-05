@@ -2,6 +2,8 @@ export type ApplicationState = {
   isLoading: boolean;
   error: string | null;
   compositions: CompositionType[];
+  favorites: FavoriteSongsMap;
+  nextPageStartIndex: number;
 };
 
 export type CompositionType = {
@@ -13,8 +15,18 @@ export type CompositionType = {
   search: string;
 };
 
+export type FavoriteSongType = {
+  id: string;
+  songId: string;
+};
+
+export type FavoriteSongsMap = {
+  [key: string]: boolean;
+};
+
 export type ApiProviderType = {
   getCompoisitions: (params: ApiParams) => Promise<CompositionType[]>;
+  getFavorites: () => Promise<FavoriteSongType[]>;
 };
 
 export type ApiParams = {
