@@ -21,12 +21,14 @@ export type FavoriteSongType = {
 };
 
 export type FavoriteSongsMap = {
-  [key: string]: boolean;
+  [key: string]: string;
 };
 
 export type ApiProviderType = {
   getCompoisitions: (params: ApiParams) => Promise<CompositionType[]>;
   getFavorites: () => Promise<FavoriteSongType[]>;
+  addFavorite: (id: string) => Promise<FavoriteSongType>;
+  deleteFavorite: (id: string) => Promise<void>;
 };
 
 export type ApiParams = {

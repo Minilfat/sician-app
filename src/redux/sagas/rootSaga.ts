@@ -9,11 +9,15 @@ import {
   fetchFavoritesFailure,
   getNextPage,
   getNextPageFailure,
-  getNextPageSuccess
+  getNextPageSuccess,
+  updateFavorite,
+  updateFavoriteSuccess,
+  updateFavoriteFailure
 } from 'src/redux/slices/appSlice';
 import { favoritesSelector, nextPageStartIndexSelector } from 'src/redux/selectors';
 import { FavoriteSongsMap, FavoriteSongType } from 'src/types/types';
 import { PAGE_SIZE } from 'src/common/constants';
+import { AnyAction } from 'redux';
 
 function* fetchFavoritesSaga(): SagaIterator {
   const api = yield getContext('api');
@@ -21,7 +25,7 @@ function* fetchFavoritesSaga(): SagaIterator {
 
   if (!response.error) {
     const transformedData = response.reduce((acc: FavoriteSongsMap, fav: FavoriteSongType) => {
-      acc[fav.songId] = true;
+      acc[fav.songId] = fav.id;
       return acc;
     }, {});
 
@@ -49,9 +53,29 @@ function* getNextPageSaga(): SagaIterator {
   yield !response.error ? put(getNextPageSuccess(response)) : put(getNextPageFailure());
 }
 
+function* updateFavoriteSaga(action: AnyAction): SagaIterator {
+  const favorites = yield select(favoritesSelector);
+  const shouldBeRemoved = Boolean(favorites[action.payload.songId]);
+  const api = yield getContext('api');
+  const response = yield call(
+    api[shouldBeRemoved ? 'deleteFavorite' : 'addFavorite'],
+    shouldBeRemoved ? action.payload.favId : action.payload.songId
+  );
+
+  yield !response.error
+    ? put(
+        updateFavoriteSuccess({
+          songId: shouldBeRemoved ? action.payload.songId : response.songId,
+          favId: response.id
+        })
+      )
+    : put(updateFavoriteFailure());
+}
+
 function* rootSaga(): Generator<ForkEffect<never>, void, unknown> {
   yield takeLatest(fetchCompositions.type, fetchCompositionsSaga);
   yield takeLatest(getNextPage.type, getNextPageSaga);
+  yield takeLatest(updateFavorite.type, updateFavoriteSaga);
 }
 
 export default rootSaga;

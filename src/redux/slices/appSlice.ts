@@ -41,8 +41,7 @@ const app = createSlice({
     }),
     getNextPage: (state): ApplicationState => ({
       ...state,
-      isLoading: true,
-      error: 'ERROR_CODE'
+      isLoading: true
     }),
     getNextPageSuccess: (state, action): ApplicationState => ({
       ...state,
@@ -54,6 +53,29 @@ const app = createSlice({
       ...state,
       isLoading: false,
       error: 'ERROR_CODE'
+    }),
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    updateFavorite: (state, action): ApplicationState => ({ ...state }),
+    updateFavoriteSuccess: (state, action): ApplicationState => {
+      const { songId, favId } = action.payload;
+      const favorites = JSON.parse(JSON.stringify(state.favorites));
+
+      // means that some item was added
+      if (songId && favId) favorites[songId] = favId;
+      else delete favorites[songId];
+
+      return {
+        ...state,
+        favorites
+      };
+    },
+    updateFavoriteFailure: (state): ApplicationState => ({
+      ...state,
+      error: 'ERROR_CODE'
+    }),
+    resetError: (state): ApplicationState => ({
+      ...state,
+      error: ''
     })
   }
 });
@@ -67,7 +89,11 @@ export const {
   fetchFavoritesFailure,
   getNextPage,
   getNextPageSuccess,
-  getNextPageFailure
+  getNextPageFailure,
+  updateFavorite,
+  updateFavoriteSuccess,
+  updateFavoriteFailure,
+  resetError
 } = app.actions;
 
 export default app.reducer;

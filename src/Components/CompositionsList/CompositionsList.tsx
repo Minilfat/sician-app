@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import debounce from 'lodash.debounce';
 
 import Composition from 'src/Components/Composition';
-import { fetchCompositions, getNextPage } from 'src/redux/slices/appSlice';
+import { fetchCompositions, getNextPage, updateFavorite } from 'src/redux/slices/appSlice';
 import { compositionsSelector, isLoadingSelector, favoritesSelector } from 'src/redux/selectors';
 
 import Spinner from 'src/Components/Spinner';
@@ -28,7 +28,7 @@ const CompositionsList: FC = () => {
   }, 300);
 
   const toggleFavorite = (id: string): void => {
-    // dispatch(())
+    dispatch(updateFavorite({ songId: id, favId: favorites[id] }));
   };
 
   return (
@@ -42,7 +42,7 @@ const CompositionsList: FC = () => {
             artist={d.artist}
             images={d.images}
             level={d.level}
-            isFavorite={favorites[d.id]}
+            isFavorite={!!favorites[d.id]}
             isEven={i % 2 === 0}
             favorite={toggleFavorite}
           />

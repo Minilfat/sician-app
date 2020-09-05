@@ -6,6 +6,7 @@ import App from 'src/App';
 
 import * as serviceWorker from 'src/serviceWorker';
 
+import 'react-toastify/dist/ReactToastify.css';
 import './index.css';
 
 ReactDOM.render(

@@ -5,3 +5,4 @@ export const compositionsSelector = (state: RootState): CompositionType[] => sta
 export const favoritesSelector = (state: RootState): FavoriteSongsMap => state.app.favorites || {};
 export const isLoadingSelector = (state: RootState): boolean => state.app.isLoading;
 export const nextPageStartIndexSelector = (state: RootState): number => state.app.nextPageStartIndex;
+export const isErrorSelector = (state: RootState): boolean => Boolean(state.app.error);
