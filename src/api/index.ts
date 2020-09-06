@@ -3,7 +3,9 @@ import { ApiProviderType, ApiParams, CompositionType, FavoriteSongType } from 's
 
 const getCompoisitions = (axios: AxiosInstance) => (params: ApiParams = {}): Promise<CompositionType[]> =>
   axios
-    .get('/songs', { params })
+    .get('/songs', {
+      params: { ...params }
+    })
     .then((response) => response.data)
     .catch((error) => ({ error }));
 

@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import { createSlice } from '@reduxjs/toolkit';
 import { ApplicationState } from 'src/types/types';
 import { PAGE_SIZE } from 'src/common/constants';
@@ -7,7 +8,11 @@ const initialState: ApplicationState = {
   error: '',
   compositions: [],
   favorites: {},
-  nextPageStartIndex: PAGE_SIZE
+  hasMorePages: true,
+  params: {
+    _start: '0',
+    _limit: String(PAGE_SIZE)
+  }
 };
 
 const app = createSlice({
@@ -21,7 +26,9 @@ const app = createSlice({
     fetchCompositionsSuccess: (state, action): ApplicationState => ({
       ...state,
       isLoading: false,
-      compositions: action.payload
+      compositions: action.payload,
+      hasMorePages: action.payload.length === PAGE_SIZE,
+      params: { ...state.params, _start: PAGE_SIZE.toString() }
     }),
     fetchCompositionsFailure: (state): ApplicationState => ({
       ...state,
@@ -47,7 +54,8 @@ const app = createSlice({
       ...state,
       isLoading: false,
       compositions: [...state.compositions, ...action.payload],
-      nextPageStartIndex: state.nextPageStartIndex + PAGE_SIZE
+      hasMorePages: action.payload.length === PAGE_SIZE,
+      params: { ...state.params, _start: (Number(state.params._start) + PAGE_SIZE).toString() }
     }),
     getNextPageFailure: (state): ApplicationState => ({
       ...state,
@@ -76,6 +84,12 @@ const app = createSlice({
     resetError: (state): ApplicationState => ({
       ...state,
       error: ''
+    }),
+    setParams: (state, action): ApplicationState => ({
+      ...state,
+      compositions: [],
+      params: action.payload,
+      hasMorePages: true
     })
   }
 });
@@ -93,7 +107,8 @@ export const {
   updateFavorite,
   updateFavoriteSuccess,
   updateFavoriteFailure,
-  resetError
+  resetError,
+  setParams
 } = app.actions;
 
 export default app.reducer;

@@ -3,7 +3,8 @@ export type ApplicationState = {
   error: string | null;
   compositions: CompositionType[];
   favorites: FavoriteSongsMap;
-  nextPageStartIndex: number;
+  hasMorePages: boolean;
+  params: ApiParams;
 };
 
 export type CompositionType = {
@@ -36,5 +37,5 @@ export type ApiParams = {
   _end?: string;
   _limit?: string;
   search_like?: string;
-  level?: string;
+  level?: string[];
 };

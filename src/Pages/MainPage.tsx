@@ -2,10 +2,14 @@ import React, { FC, useEffect, ReactText } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 
+import { PAGE_SIZE } from 'src/common/constants';
 import { isErrorSelector } from 'src/redux/selectors';
-import { resetError } from 'src/redux/slices/appSlice';
+import { resetError, setParams, fetchCompositions } from 'src/redux/slices/appSlice';
 import SearchBar from 'src/Components/SearchBar';
+import Filter from 'src/Components/Filter';
 import CompositionsList from 'src/Components/CompositionsList/CompositionsList';
+
+import classes from './MainPage.module.scss';
 
 const MainPage: FC = () => {
   const dispatch = useDispatch();
@@ -28,11 +32,19 @@ const MainPage: FC = () => {
     if (isError) notify();
   }, [isError]);
 
+  const handleNewLevelsSelected = (levels: string[]): void => {
+    dispatch(setParams({ _limit: PAGE_SIZE, level: levels, _start: 0 }));
+    dispatch(fetchCompositions());
+  };
+
   return (
-    <div>
+    <div className={classes.wrapper}>
       <ToastContainer />
       <SearchBar />
-      <CompositionsList />
+      <div className={classes.mainBlock}>
+        <Filter onSelection={handleNewLevelsSelected} />
+        <CompositionsList />
+      </div>
     </div>
   );
 };

@@ -1,0 +1,11 @@
+@import 'src/styles/breakpoints';
+
+.wrapper {
+  width: 100%;
+
+  .mainBlock {
+    width: 100%;
+    margin: auto;
+    max-width: $screen-md-max;
+  }
+}

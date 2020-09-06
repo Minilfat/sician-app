@@ -1,0 +1,165 @@
+@import 'src/styles/colors';
+@import 'src/styles/common';
+@import 'src/styles/breakpoints';
+
+@mixin iconMixin($backgroundColor, $fillColor) {
+  padding: 6px;
+  width: 36px;
+  height: 36px;
+  border: 2px solid $textprimary;
+  border-radius: 50%;
+  background-color: $backgroundColor;
+
+  svg {
+    min-width: 20px;
+    min-height: 20px;
+    width: 100%;
+    height: 100%;
+    fill: $fillColor;
+  }
+}
+
+@mixin rangeTextStyle {
+  padding: 8px 12px;
+  border: 2px solid #ffffff;
+  border-radius: 40px 0px 0px 40px;
+  border-right-width: 0px;
+  margin-right: -18px;
+}
+
+.wrapper {
+  padding: 16px;
+  color: $textprimary;
+  overflow-y: hidden;
+
+  .filterLabel {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-left: 6px;
+  }
+
+  .filterLabelWithRange {
+    .text {
+      max-height: 36px;
+      @include rangeTextStyle;
+
+      span {
+        margin: 0 24px 0 12px;
+      }
+    }
+  }
+
+  .label {
+    cursor: pointer;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    .text {
+      font-size: 14px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .icon {
+      @include iconMixin(#000000, $textprimary);
+    }
+
+    .iconWithRange {
+      @include iconMixin($textprimary, #000000);
+    }
+  }
+
+  .levels {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+
+    .level {
+      cursor: pointer;
+      margin: 16px 8px;
+    }
+
+    @include custom-width(820px) {
+      justify-content: center;
+      .level {
+        flex-basis: 15%;
+        > div {
+          margin: auto;
+        }
+      }
+    }
+  }
+}
+
+.listTransition {
+  &Enter {
+    max-height: 0;
+
+    &Active {
+      max-height: 70px;
+      @include custom-width(820px) {
+        max-height: 340px;
+      }
+
+      transition: max-height 0.4s;
+    }
+  }
+
+  &Exit {
+    max-height: 70px;
+    @include custom-width(820px) {
+      max-height: 340px;
+    }
+
+    &Active {
+      max-height: 0;
+      transition: max-height 0.4s;
+    }
+  }
+}
+
+.rangeTextTransition {
+  &Enter {
+    width: 0;
+    overflow-x: hidden;
+    &Active {
+      width: 100%;
+      transition: width 0.6s;
+    }
+  }
+
+  &Exit {
+    width: 100%;
+    @include rangeTextStyle;
+    max-height: 36px;
+    margin-right: -18px;
+    color: #000000;
+
+    &Active {
+      width: 18px;
+      padding-right: 0;
+      overflow-x: hidden;
+      transition: all 0.3s;
+    }
+  }
+}
+
+.fade {
+  &Enter {
+    opacity: 0;
+    &Active {
+      transition: opacity 300ms;
+      opacity: 1;
+    }
+  }
+
+  &Exit {
+    opacity: 1;
+    &Active {
+      opacity: 0;
+      transition: opacity 300ms;
+    }
+  }
+}

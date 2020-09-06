@@ -4,7 +4,7 @@ import debounce from 'lodash.debounce';
 
 import Composition from 'src/Components/Composition';
 import { fetchCompositions, getNextPage, updateFavorite } from 'src/redux/slices/appSlice';
-import { compositionsSelector, isLoadingSelector, favoritesSelector } from 'src/redux/selectors';
+import { compositionsSelector, isLoadingSelector, favoritesSelector, hasMorePagesSelector } from 'src/redux/selectors';
 
 import Spinner from 'src/Components/Spinner';
 
@@ -15,13 +15,14 @@ const CompositionsList: FC = () => {
   const data = useSelector(compositionsSelector);
   const favorites = useSelector(favoritesSelector);
   const isListLoading = useSelector(isLoadingSelector);
+  const hasMore = useSelector(hasMorePagesSelector);
 
   useEffect(() => {
     dispatch(fetchCompositions());
   }, []);
 
   window.onscroll = debounce(() => {
-    if (isListLoading) return;
+    if (isListLoading || !hasMore) return;
     if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
       dispatch(getNextPage());
     }
@@ -34,19 +35,21 @@ const CompositionsList: FC = () => {
   return (
     <>
       <div className={classes.wrapper}>
-        {data.map((d, i) => (
-          <Composition
-            key={d.id}
-            id={d.id}
-            title={d.title}
-            artist={d.artist}
-            images={d.images}
-            level={d.level}
-            isFavorite={!!favorites[d.id]}
-            isEven={i % 2 === 0}
-            favorite={toggleFavorite}
-          />
-        ))}
+        {data.length > 0 &&
+          data.map((d, i) => (
+            <Composition
+              key={d.id}
+              id={d.id}
+              title={d.title}
+              artist={d.artist}
+              images={d.images}
+              level={d.level}
+              isFavorite={!!favorites[d.id]}
+              isEven={i % 2 === 0}
+              favorite={toggleFavorite}
+            />
+          ))}
+        {!isListLoading && data.length === 0 && <div>No songs</div>}
         {isListLoading && (
           <div>
             <Spinner />
