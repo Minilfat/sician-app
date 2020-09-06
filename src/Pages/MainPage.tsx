@@ -37,10 +37,15 @@ const MainPage: FC = () => {
     dispatch(fetchCompositions());
   };
 
+  const test = (value: string): void => {
+    dispatch(setParams({ _limit: PAGE_SIZE, search_like: value, _start: 0 }));
+    dispatch(fetchCompositions());
+  };
+
   return (
     <div className={classes.wrapper}>
       <ToastContainer />
-      <SearchBar />
+      <SearchBar onSearch={test} />
       <div className={classes.mainBlock}>
         <Filter onSelection={handleNewLevelsSelected} />
         <CompositionsList />

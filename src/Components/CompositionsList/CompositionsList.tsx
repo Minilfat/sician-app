@@ -5,6 +5,7 @@ import debounce from 'lodash.debounce';
 import Composition from 'src/Components/Composition';
 import { fetchCompositions, getNextPage, updateFavorite } from 'src/redux/slices/appSlice';
 import { compositionsSelector, isLoadingSelector, favoritesSelector, hasMorePagesSelector } from 'src/redux/selectors';
+import { DEBOUNCE_DELAY } from 'src/common/constants';
 
 import Spinner from 'src/Components/Spinner';
 
@@ -26,7 +27,7 @@ const CompositionsList: FC = () => {
     if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
       dispatch(getNextPage());
     }
-  }, 300);
+  }, DEBOUNCE_DELAY);
 
   const toggleFavorite = (id: string): void => {
     dispatch(updateFavorite({ songId: id, favId: favorites[id] }));

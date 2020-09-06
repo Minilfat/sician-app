@@ -4,14 +4,18 @@ import SearchInput from 'src/Components/SearchInput';
 
 import classes from './SearchBar.module.scss';
 
-const SearchBar: FC = () => {
+type SearchBarProps = {
+  onSearch: (value: string) => void;
+};
+
+const SearchBar: FC<SearchBarProps> = ({ onSearch }: SearchBarProps) => {
   return (
     <div className={classes.wrapper}>
       <h1 className={classes.title}>New songs delivered every week</h1>
       <h4 className={classes.subtitle}>
         Here are the most recent additions to the Yousician App. Start playing today!
       </h4>
-      <SearchInput />
+      <SearchInput onSearch={onSearch} />
     </div>
   );
 };

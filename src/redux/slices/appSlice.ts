@@ -88,7 +88,7 @@ const app = createSlice({
     setParams: (state, action): ApplicationState => ({
       ...state,
       compositions: [],
-      params: action.payload,
+      params: { ...state.params, ...action.payload },
       hasMorePages: true
     })
   }
