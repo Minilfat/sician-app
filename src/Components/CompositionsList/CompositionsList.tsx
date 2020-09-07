@@ -1,11 +1,9 @@
 import React, { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import debounce from 'lodash.debounce';
 
 import Composition from 'src/Components/Composition';
 import { fetchCompositions, getNextPage, updateFavorite } from 'src/redux/slices/appSlice';
 import { compositionsSelector, isLoadingSelector, favoritesSelector, hasMorePagesSelector } from 'src/redux/selectors';
-import { DEBOUNCE_DELAY } from 'src/common/constants';
 
 import Spinner from 'src/Components/Spinner';
 
@@ -22,12 +20,12 @@ const CompositionsList: FC = () => {
     dispatch(fetchCompositions());
   }, []);
 
-  window.onscroll = debounce(() => {
+  window.onscroll = (): void => {
     if (isListLoading || !hasMore) return;
     if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
       dispatch(getNextPage());
     }
-  }, DEBOUNCE_DELAY);
+  };
 
   const toggleFavorite = (id: string): void => {
     dispatch(updateFavorite({ songId: id, favId: favorites[id] }));

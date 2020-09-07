@@ -48,7 +48,7 @@ const Composition: FC<CompositionTypeProps> = ({
 
         <div className={classes.favorite} onClick={(): void => favorite(id)}>
           <div className={classes[isFavorite ? 'favorite-fill' : 'favorite-border']}>
-            {isFavorite ? <Favorite /> : <FavoriteBorder />}
+            <span>{isFavorite ? <Favorite /> : <FavoriteBorder />}</span>
           </div>
         </div>
       </div>

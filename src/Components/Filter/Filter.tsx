@@ -102,7 +102,12 @@ const Filter: FC<FilterProps> = ({ onSelection }: FilterProps) => {
               const level = index + item;
 
               return (
-                <div key={`key${level}`} className={classes.level} onClick={(): void => handleLevelClicked(level)}>
+                <div
+                  key={`key${level}`}
+                  data-testid={`level${level}`}
+                  className={classes.level}
+                  onClick={(): void => handleLevelClicked(level)}
+                >
                   <Level level={level} isChecked={selected[level]} />
                 </div>
               );

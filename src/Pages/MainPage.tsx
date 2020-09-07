@@ -1,8 +1,8 @@
 import React, { FC, useEffect, ReactText } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast, ToastOptions } from 'react-toastify';
 
-import { PAGE_SIZE } from 'src/common/constants';
+import { PAGE_SIZE, TOAST_CONFIG } from 'src/common/constants';
 import { isErrorSelector } from 'src/redux/selectors';
 import { resetError, setParams, fetchCompositions } from 'src/redux/slices/appSlice';
 import SearchBar from 'src/Components/SearchBar';
@@ -15,14 +15,8 @@ const MainPage: FC = () => {
   const dispatch = useDispatch();
   const isError = useSelector(isErrorSelector);
   const notify = (): ReactText =>
-    toast.error('Something happened while processing your rerquest!', {
-      position: 'top-right',
-      autoClose: 500000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
+    toast.error('Something happened while processing your rerquest', {
+      ...(TOAST_CONFIG as ToastOptions),
       onClose: () => {
         dispatch(resetError());
       }
@@ -37,7 +31,7 @@ const MainPage: FC = () => {
     dispatch(fetchCompositions());
   };
 
-  const test = (value: string): void => {
+  const search = (value: string): void => {
     dispatch(setParams({ _limit: PAGE_SIZE, search_like: value, _start: 0 }));
     dispatch(fetchCompositions());
   };
@@ -45,7 +39,7 @@ const MainPage: FC = () => {
   return (
     <div className={classes.wrapper}>
       <ToastContainer />
-      <SearchBar onSearch={test} />
+      <SearchBar onSearch={search} />
       <div className={classes.mainBlock}>
         <Filter onSelection={handleNewLevelsSelected} />
         <CompositionsList />

@@ -122,11 +122,12 @@
 
 .rangeTextTransition {
   &Enter {
-    width: 0;
+    width: 18px;
+    padding-right: 0;
     overflow-x: hidden;
     &Active {
       width: 100%;
-      transition: width 0.6s;
+      transition: all 0.6s;
     }
   }
 
