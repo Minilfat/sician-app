@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import { createSlice } from '@reduxjs/toolkit';
-import { ApplicationState } from 'src/types/types';
+import { ApplicationState } from 'src/types';
 import { PAGE_SIZE } from 'src/common/constants';
 
 const initialState: ApplicationState = {

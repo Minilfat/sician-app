@@ -1,5 +1,5 @@
 import { RootState } from 'src/redux/store';
-import { CompositionType, FavoriteSongsMap, ApiParams } from 'src/types/types';
+import { CompositionType, FavoriteSongsMap, ApiParams } from 'src/types';
 
 export const compositionsSelector = (state: RootState): CompositionType[] => state.app.compositions || [];
 export const favoritesSelector = (state: RootState): FavoriteSongsMap => state.app.favorites || {};

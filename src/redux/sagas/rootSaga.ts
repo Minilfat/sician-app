@@ -16,7 +16,7 @@ import {
   updateFavoriteFailure
 } from 'src/redux/slices/appSlice';
 import { favoritesSelector, fetchParamsSelector } from 'src/redux/selectors';
-import { FavoriteSongsMap, FavoriteSongType } from 'src/types/types';
+import { FavoriteSongsMap, FavoriteSongType } from 'src/types';
 
 function* fetchFavoritesSaga(): SagaIterator {
   const api = yield getContext('api');

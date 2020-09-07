@@ -1,5 +1,5 @@
 import { AxiosInstance } from 'axios';
-import { ApiProviderType, ApiParams, CompositionType, FavoriteSongType } from 'src/types/types';
+import { ApiProviderType, ApiParams, CompositionType, FavoriteSongType } from 'src/types';
 
 const getCompoisitions = (axios: AxiosInstance) => (params: ApiParams = {}): Promise<CompositionType[]> =>
   axios
